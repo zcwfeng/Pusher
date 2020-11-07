@@ -7,7 +7,6 @@
 
 extern "C"
 JNIEXPORT void
-
 JNICALL
 Java_top_zcwfeng_pusher_ImageUtils_rotation(JNIEnv *env, jclass clazz, jbyteArray data_,
                                             jint width, jint height, jint degress) {
@@ -17,14 +16,16 @@ Java_top_zcwfeng_pusher_ImageUtils_rotation(JNIEnv *env, jclass clazz, jbyteArra
     int ySize = width * height;
     int uSize = (width >> 1) * (height >> 1);
     int size = (ySize * 3) >> 1;
+    uint8_t dst[size];
+
     uint8_t *src_y = src;
     uint8_t *src_u = src + ySize;
     uint8_t *src_v = src + ySize + uSize;
 
-    uint8_t dst[size];
     uint8_t *dst_y = dst;
     uint8_t *dst_u = dst + ySize;
     uint8_t *dst_v = dst + ySize + uSize;
+
     libyuv::I420Rotate(src_y, width, src_u, width >> 1, src_v, width >> 1,
                        dst_y, height, dst_u, height >> 1, dst_v, height >> 1,
                        width, height, static_cast<libyuv::RotationMode>(degress));
@@ -50,17 +51,18 @@ Java_top_zcwfeng_pusher_ImageUtils_scale(JNIEnv *env, jclass clazz, jbyteArray s
 
 
     uint8_t *src_y;
-    int src_stride_y;
     uint8_t *src_u;
-    int src_stride_u;
     uint8_t *src_v;
+
+    int src_stride_y;
+    int src_stride_u;
     int src_stride_v;
 
     uint8_t *dst_y;
-    int dst_stride_y;
     uint8_t *dst_u;
-    int dst_stride_u;
     uint8_t *dst_v;
+    int dst_stride_y;
+    int dst_stride_u;
     int dst_stride_v;
 
     src_stride_y = src_width;

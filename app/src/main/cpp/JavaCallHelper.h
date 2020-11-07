@@ -16,17 +16,13 @@ public:
     JavaCallHelper(JavaVM *_javaVm, JNIEnv *_env, jobject &_jobj);
     ~JavaCallHelper();
 
-    void onError(int code,int thread = THREAD_MAIN);
-    void onPrepare(int thread = THREAD_MAIN);
-    void onProgress(int progress,int thread = THREAD_MAIN);
+    void onPrepare(bool isConnect,int thread = THREAD_CHILD);
 
 public:
     JavaVM *javaVM;
     JNIEnv *env;
     jobject jobj;
-    jmethodID jmid_error;
     jmethodID jmid_prepare;
-    jmethodID jmid_progress;
 };
 
 

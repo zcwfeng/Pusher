@@ -1,0 +1,15 @@
+
+#定义宏 如果嗲马忠定义了 #define NO_CRYPTO
+#表示不适用ssl，，不支持rtmps，这里我们不支持ssl
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DNO_CRYPTO")
+#所有源文件放入 rtmp_source 边领
+file(GLOB rtmp_source *.c)
+add_library(
+        rtmp
+        STATIC
+        ${rtmp_source}
+)
+
+
+#aux_source_directory(. SOURCE)
+#add_library(rtmp STATIC ${SOURCE})
